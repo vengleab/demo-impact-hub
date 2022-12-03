@@ -28,7 +28,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Create Bucket if not exist
-        run: aws s3api head-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} || aws s3api create-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} --region us-east-1
+        run: aws s3api head-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} 2> /dev/null || aws s3api create-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} --region us-east-1
 
       - name: Deploy to S3 bucket
         run: echo $NEXT_PUBLIC_ENV && aws s3 sync ./out/ s3://demo-impact-hub-${NEXT_PUBLIC_ENV} --delete
