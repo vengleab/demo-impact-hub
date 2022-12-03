@@ -80,7 +80,7 @@ function App() {
     <div className="app">
       {/* <link rel="stylesheet" href="/Home.module.css" /> */}
       <div className="container">
-        <h1 className="text-center mb-4">Todo List</h1>
+        <h1 className="text-center mb-4">Todo List in {process.env.NEXT_PUBLIC_ENV}</h1>
         <FormTodo addTodo={addTodo} />
         <div>
           {todos.map((todo, index) => (
