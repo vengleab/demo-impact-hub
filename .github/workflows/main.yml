@@ -31,4 +31,4 @@ jobs:
       #   run: aws s3api head-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} 2> /dev/null || aws s3api create-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} --region us-east-1
 
       - name: Deploy to S3 bucket
-        run: echo $NEXT_PUBLIC_ENV && aws s3 sync ./out/ s3://demo-impact-hub-${NEXT_PUBLIC_ENV} --delete
+        run: echo $NEXT_PUBLIC_ENV && aws s3 sync ./out/ s3://demo-impact-hub-development --delete
