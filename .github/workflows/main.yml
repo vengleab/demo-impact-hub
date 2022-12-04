@@ -7,7 +7,7 @@ on:
       - develop
 jobs:
   # To build the project
-  build-tambola:
+  deploy-dev:
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -17,6 +17,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
+          cache: 'npm'
       - name: Installing dependencies
         run: npm install
       - name: Building project
@@ -27,6 +28,8 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      - name: Display env
+        run: echo $NEXT_PUBLIC_ENV 
       # - name: Create Bucket if not exist
       #   run: aws s3api head-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} 2> /dev/null || aws s3api create-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} --region us-east-1
 
