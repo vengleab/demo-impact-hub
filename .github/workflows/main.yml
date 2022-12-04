@@ -21,6 +21,8 @@ jobs:
       - name: Installing dependencies
         run: npm install
       - name: Building project
+        env:
+          NEXT_PUBLIC_ENV: ${{ env.NEXT_PUBLIC_ENV }} 
         run: npm run build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
