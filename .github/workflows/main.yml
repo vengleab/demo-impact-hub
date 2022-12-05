@@ -1,5 +1,5 @@
 # Name of workflow as seen in Github actions tab
-name: dev-build-and-deploy
+name: Deploy NextJS App
 # Run workflow only on push to dev branch
 on:
   push:
@@ -7,7 +7,7 @@ on:
       - develop
 jobs:
   # To build the project
-  build-tambola:
+  deploy-dev:
     runs-on: ubuntu-latest
     environment: dev
     steps:
@@ -17,9 +17,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
+          cache: 'npm'
       - name: Installing dependencies
         run: npm install
       - name: Building project
+        env:
+          NEXT_PUBLIC_ENV: ${{ env.NEXT_PUBLIC_ENV }} 
         run: npm run build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -27,6 +30,10 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
+      # - name: Create Bucket if not exist
+      #   run: aws s3api head-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} 2> /dev/null || aws s3api create-bucket --bucket demo-impact-hub-${NEXT_PUBLIC_ENV} --region us-east-1
 
       - name: Deploy to S3 bucket
-        run: echo $NEXT_PUBLIC_ENV && aws s3 sync ./dist/ s3://demo-impact-hub-${$NEXT_PUBLIC_ENV} --delete
+        env:
+          NEXT_PUBLIC_ENV: ${{ env.NEXT_PUBLIC_ENV }} 
+        run: aws s3 sync ./out/ s3://demo-impact-hub-development --delete
