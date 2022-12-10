@@ -12,5 +12,5 @@
 
 .item:hover {
   cursor: pointer;
-  background-color: gray;
+  background-color: rgb(206, 200, 200);
 }

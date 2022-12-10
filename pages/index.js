@@ -49,7 +49,7 @@ function FormTodo({ addTodo }) {
             onChange={(e) => setValue(e.target.value)}
             placeholder="Add new todo"
           />
-          <Button>Submit</Button>
+          <Button type="submit">Submit</Button>
         </InputGroup>
       </Form.Group>
     </Form>
