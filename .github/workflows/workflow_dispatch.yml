@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Example variable usage
         run: |
+          git remote set-url --push origin https://vengleab:$GITHUB_TOKEN@github.com/vengleab/demo-impact-hub/
           git tag ${{ github.event.inputs.version }}
           git push ${{ github.event.inputs.version }}
 
