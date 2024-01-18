@@ -12,6 +12,13 @@ jobs:
   bump-version:
     name: Bump Package Version
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - uses: actions/checkout@v2
       - name: Example variable usage
-        run: git tag ${{ github.event.inputs.version }}
+        run: |
+          git remote set-url --push origin https://vengleab:$GITHUB_TOKEN@github.com/vengleab/demo-impact-hub/
+          git tag ${{ github.event.inputs.version }}
+          git push origin ${{ github.event.inputs.version }}
+
